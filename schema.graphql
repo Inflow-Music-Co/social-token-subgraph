@@ -4,3 +4,25 @@ type ExampleEntity @entity {
   previousOwner: Bytes! # address
   newOwner: Bytes! # address
 }
+
+type Factory @entity {
+  # factory address
+  id: ID!
+  # amount of social token created
+  tokenCount: BigInt!
+  # amount of transactions all time
+  txCount: BigInt!
+  # amount of unique users
+  userCount: BigInt!
+}
+
+type Create @enity {
+  # transaction hash + "#" + index in swaps Transaction array
+  id: ID!
+  # address of the token creator
+  ownerAddress: Bytes!
+  # address of the token
+  tokenAddress: Bytes! 
+  # timestamp of transaction 
+  timestamp: BigInt!
+}
