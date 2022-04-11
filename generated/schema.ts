@@ -73,3 +73,202 @@ export class ExampleEntity extends Entity {
     this.set("newOwner", Value.fromBytes(value));
   }
 }
+
+export class Factory extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("tokenCount", Value.fromBigInt(BigInt.zero()));
+    this.set("txCount", Value.fromBigInt(BigInt.zero()));
+    this.set("userCount", Value.fromBigInt(BigInt.zero()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Factory entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type Factory must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+      );
+      store.set("Factory", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Factory | null {
+    return changetype<Factory | null>(store.get("Factory", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get tokenCount(): BigInt {
+    let value = this.get("tokenCount");
+    return value!.toBigInt();
+  }
+
+  set tokenCount(value: BigInt) {
+    this.set("tokenCount", Value.fromBigInt(value));
+  }
+
+  get txCount(): BigInt {
+    let value = this.get("txCount");
+    return value!.toBigInt();
+  }
+
+  set txCount(value: BigInt) {
+    this.set("txCount", Value.fromBigInt(value));
+  }
+
+  get userCount(): BigInt {
+    let value = this.get("userCount");
+    return value!.toBigInt();
+  }
+
+  set userCount(value: BigInt) {
+    this.set("userCount", Value.fromBigInt(value));
+  }
+}
+
+export class Create extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("ownerAddress", Value.fromBytes(Bytes.empty()));
+    this.set("tokenAddress", Value.fromBytes(Bytes.empty()));
+    this.set("timestamp", Value.fromBigInt(BigInt.zero()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Create entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type Create must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+      );
+      store.set("Create", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Create | null {
+    return changetype<Create | null>(store.get("Create", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get ownerAddress(): Bytes {
+    let value = this.get("ownerAddress");
+    return value!.toBytes();
+  }
+
+  set ownerAddress(value: Bytes) {
+    this.set("ownerAddress", Value.fromBytes(value));
+  }
+
+  get tokenAddress(): Bytes {
+    let value = this.get("tokenAddress");
+    return value!.toBytes();
+  }
+
+  set tokenAddress(value: Bytes) {
+    this.set("tokenAddress", Value.fromBytes(value));
+  }
+
+  get timestamp(): BigInt {
+    let value = this.get("timestamp");
+    return value!.toBigInt();
+  }
+
+  set timestamp(value: BigInt) {
+    this.set("timestamp", Value.fromBigInt(value));
+  }
+}
+
+export class Transaction extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("blockNumber", Value.fromBigInt(BigInt.zero()));
+    this.set("timestamp", Value.fromBigInt(BigInt.zero()));
+    this.set("gasUsed", Value.fromBigInt(BigInt.zero()));
+    this.set("gasPrice", Value.fromBigInt(BigInt.zero()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Transaction entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type Transaction must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+      );
+      store.set("Transaction", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Transaction | null {
+    return changetype<Transaction | null>(store.get("Transaction", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get blockNumber(): BigInt {
+    let value = this.get("blockNumber");
+    return value!.toBigInt();
+  }
+
+  set blockNumber(value: BigInt) {
+    this.set("blockNumber", Value.fromBigInt(value));
+  }
+
+  get timestamp(): BigInt {
+    let value = this.get("timestamp");
+    return value!.toBigInt();
+  }
+
+  set timestamp(value: BigInt) {
+    this.set("timestamp", Value.fromBigInt(value));
+  }
+
+  get gasUsed(): BigInt {
+    let value = this.get("gasUsed");
+    return value!.toBigInt();
+  }
+
+  set gasUsed(value: BigInt) {
+    this.set("gasUsed", Value.fromBigInt(value));
+  }
+
+  get gasPrice(): BigInt {
+    let value = this.get("gasPrice");
+    return value!.toBigInt();
+  }
+
+  set gasPrice(value: BigInt) {
+    this.set("gasPrice", Value.fromBigInt(value));
+  }
+}

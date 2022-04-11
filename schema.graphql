@@ -16,7 +16,7 @@ type Factory @entity {
   userCount: BigInt!
 }
 
-type Create @enity {
+type Create @entity {
   # transaction hash + "#" + index in swaps Transaction array
   id: ID!
   # address of the token creator
@@ -25,4 +25,16 @@ type Create @enity {
   tokenAddress: Bytes! 
   # timestamp of transaction 
   timestamp: BigInt!
+}
+
+type Transaction @entity {
+  # txn hash
+  id: ID!
+  # block txn was included in
+  blockNumber: BigInt!
+  # timestamp txn was confirmed
+  timestamp: BigInt!
+  # gas used during txn execution
+  gasUsed: BigInt!
+  gasPrice: BigInt!
 }

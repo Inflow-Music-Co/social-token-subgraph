@@ -1,4 +1,4 @@
-specVersion: 0.0.2
+specVersion: 0.0.4
 schema:
   file: ./schema.graphql
 dataSources:
@@ -10,8 +10,9 @@ dataSources:
       abi: Factory
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
+      file: ./src/mappings/factory.ts
       entities:
         - OwnershipTransferred
         - SocialTokenCreated
@@ -29,4 +30,22 @@ dataSources:
           handler: handleUnwhitelisted
         - event: Whitelisted(indexed address)
           handler: handleWhitelisted
-      file: ./src/mapping.ts
+templates:
+  - kind: ethereum
+    name: SocialToken
+    network: rinkeby
+    source:
+      abi: SocialToken
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./src/mappings/core.ts
+      entities:
+        - Create
+      abis:
+        - name: SocialToken
+          file: ./abis/SocialToken.json
+ 
+
+
