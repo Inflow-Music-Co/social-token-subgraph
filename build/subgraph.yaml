@@ -1,0 +1,43 @@
+specVersion: 0.0.4
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Factory
+    network: rinkeby
+    source:
+      address: "0x0024B65D2F4c399467541783d662f198a8627d68"
+      abi: Factory
+      startBlock: 10000000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: Factory/Factory.wasm
+      entities:
+        - OwnershipTransferred
+        - SocialTokenCreated
+        - Unwhitelisted
+        - Whitelisted
+      abis:
+        - name: Factory
+          file: Factory/abis/Factory.json
+      eventHandlers:
+        - event: SocialTokenCreated(indexed address,indexed address)
+          handler: handleSocialTokenCreated
+templates:
+  - kind: ethereum
+    name: SocialToken
+    network: rinkeby
+    source:
+      abi: SocialToken
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: templates/SocialToken/SocialToken.wasm
+      entities:
+        - Create
+      abis:
+        - name: SocialToken
+          file: SocialToken/abis/SocialToken.json
