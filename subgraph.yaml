@@ -2,7 +2,7 @@ specVersion: 0.0.4
 schema:
   file: ./schema.graphql
 dataSources:
-  - kind: ethereum
+  - kind: ethereum/contract
     name: Factory
     network: rinkeby
     source:
@@ -30,7 +30,7 @@ dataSources:
         - event: Whitelisted(indexed address)
           handler: handleWhitelisted
 templates:
-  - kind: ethereum
+  - kind: ethereum/contract
     name: SocialToken
     network: rinkeby
     source:
@@ -41,7 +41,6 @@ templates:
       language: wasm/assemblyscript
       file: ./src/mappings/core.ts
       entities:
-        - SocialToken
         - Minted
         - Burned
       abis:

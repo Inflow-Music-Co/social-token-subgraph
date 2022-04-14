@@ -3,7 +3,7 @@ import { SocialTokenCreated,Whitelisted } from "../../generated/Factory/Factory"
 import { Create, Factory, Whitelist} from "../../generated/schema"
 import { loadTransaction } from '../utils/index'
 import { FACTORY_ADDRESS,ONE_BI, ZERO_BD, ZERO_BI } from '../utils/constants'
-
+import { SocialToken as SocialTokenTemplate } from '../../generated/templates'
 
 
 export function handleSocialTokenCreated(event: SocialTokenCreated):void {
@@ -24,6 +24,7 @@ export function handleSocialTokenCreated(event: SocialTokenCreated):void {
     create.tokenAddress = event.params.socialToken
     create.timestamp = transaction.timestamp
 
+    SocialTokenTemplate.create(event.params.socialToken)
     factory.save()
     create.save()
 }
