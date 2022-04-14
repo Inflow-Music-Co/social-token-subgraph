@@ -142,7 +142,7 @@ export class Create extends Entity {
     super();
     this.set("id", Value.fromString(id));
 
-    this.set("ownerAddress", Value.fromBytes(Bytes.empty()));
+    this.set("creatorAddress", Value.fromBytes(Bytes.empty()));
     this.set("tokenAddress", Value.fromBytes(Bytes.empty()));
     this.set("timestamp", Value.fromBigInt(BigInt.zero()));
   }
@@ -172,13 +172,13 @@ export class Create extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get ownerAddress(): Bytes {
-    let value = this.get("ownerAddress");
+  get creatorAddress(): Bytes {
+    let value = this.get("creatorAddress");
     return value!.toBytes();
   }
 
-  set ownerAddress(value: Bytes) {
-    this.set("ownerAddress", Value.fromBytes(value));
+  set creatorAddress(value: Bytes) {
+    this.set("creatorAddress", Value.fromBytes(value));
   }
 
   get tokenAddress(): Bytes {
@@ -197,6 +197,225 @@ export class Create extends Entity {
 
   set timestamp(value: BigInt) {
     this.set("timestamp", Value.fromBigInt(value));
+  }
+}
+
+export class Whitelist extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("timestamp", Value.fromBigInt(BigInt.zero()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Whitelist entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type Whitelist must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+      );
+      store.set("Whitelist", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Whitelist | null {
+    return changetype<Whitelist | null>(store.get("Whitelist", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get timestamp(): BigInt {
+    let value = this.get("timestamp");
+    return value!.toBigInt();
+  }
+
+  set timestamp(value: BigInt) {
+    this.set("timestamp", Value.fromBigInt(value));
+  }
+}
+
+export class Minted extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("minter", Value.fromBytes(Bytes.empty()));
+    this.set("amount", Value.fromBigInt(BigInt.zero()));
+    this.set("mintPrice", Value.fromBigInt(BigInt.zero()));
+    this.set("tokenSupply", Value.fromBigInt(BigInt.zero()));
+    this.set("royaltyPaid", Value.fromBigInt(BigInt.zero()));
+    this.set("reserve", Value.fromBigInt(BigInt.zero()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Minted entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type Minted must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+      );
+      store.set("Minted", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Minted | null {
+    return changetype<Minted | null>(store.get("Minted", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get minter(): Bytes {
+    let value = this.get("minter");
+    return value!.toBytes();
+  }
+
+  set minter(value: Bytes) {
+    this.set("minter", Value.fromBytes(value));
+  }
+
+  get amount(): BigInt {
+    let value = this.get("amount");
+    return value!.toBigInt();
+  }
+
+  set amount(value: BigInt) {
+    this.set("amount", Value.fromBigInt(value));
+  }
+
+  get mintPrice(): BigInt {
+    let value = this.get("mintPrice");
+    return value!.toBigInt();
+  }
+
+  set mintPrice(value: BigInt) {
+    this.set("mintPrice", Value.fromBigInt(value));
+  }
+
+  get tokenSupply(): BigInt {
+    let value = this.get("tokenSupply");
+    return value!.toBigInt();
+  }
+
+  set tokenSupply(value: BigInt) {
+    this.set("tokenSupply", Value.fromBigInt(value));
+  }
+
+  get royaltyPaid(): BigInt {
+    let value = this.get("royaltyPaid");
+    return value!.toBigInt();
+  }
+
+  set royaltyPaid(value: BigInt) {
+    this.set("royaltyPaid", Value.fromBigInt(value));
+  }
+
+  get reserve(): BigInt {
+    let value = this.get("reserve");
+    return value!.toBigInt();
+  }
+
+  set reserve(value: BigInt) {
+    this.set("reserve", Value.fromBigInt(value));
+  }
+}
+
+export class Burned extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("burner", Value.fromBytes(Bytes.empty()));
+    this.set("amount", Value.fromBigInt(BigInt.zero()));
+    this.set("burnPrice", Value.fromBigInt(BigInt.zero()));
+    this.set("tokenSupply", Value.fromBigInt(BigInt.zero()));
+    this.set("reserve", Value.fromBigInt(BigInt.zero()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Burned entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type Burned must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+      );
+      store.set("Burned", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Burned | null {
+    return changetype<Burned | null>(store.get("Burned", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get burner(): Bytes {
+    let value = this.get("burner");
+    return value!.toBytes();
+  }
+
+  set burner(value: Bytes) {
+    this.set("burner", Value.fromBytes(value));
+  }
+
+  get amount(): BigInt {
+    let value = this.get("amount");
+    return value!.toBigInt();
+  }
+
+  set amount(value: BigInt) {
+    this.set("amount", Value.fromBigInt(value));
+  }
+
+  get burnPrice(): BigInt {
+    let value = this.get("burnPrice");
+    return value!.toBigInt();
+  }
+
+  set burnPrice(value: BigInt) {
+    this.set("burnPrice", Value.fromBigInt(value));
+  }
+
+  get tokenSupply(): BigInt {
+    let value = this.get("tokenSupply");
+    return value!.toBigInt();
+  }
+
+  set tokenSupply(value: BigInt) {
+    this.set("tokenSupply", Value.fromBigInt(value));
+  }
+
+  get reserve(): BigInt {
+    let value = this.get("reserve");
+    return value!.toBigInt();
+  }
+
+  set reserve(value: BigInt) {
+    this.set("reserve", Value.fromBigInt(value));
   }
 }
 

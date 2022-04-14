@@ -20,11 +20,38 @@ type Create @entity {
   # transaction hash + "#" + index in Transaction array
   id: ID!
   # address of the token creator
-  ownerAddress: Bytes!
+  creatorAddress: Bytes!
   # address of the token
   tokenAddress: Bytes! 
   # timestamp of transaction 
   timestamp: BigInt!
+}
+
+type Whitelist @entity {
+  # whitelisted address
+  id: ID!
+  timestamp: BigInt!
+}
+
+type Minted @entity{
+  # transaction hash + "#" + index in mints Transaction array
+  id: ID!
+  minter: Bytes!
+  amount: BigInt!
+  mintPrice: BigInt!
+  tokenSupply: BigInt!
+  royaltyPaid: BigInt!
+  reserve: BigInt!
+}
+
+type Burned @entity{
+  # transaction hash + "#" + index in burns Transaction array
+  id: ID!
+  burner: Bytes!
+  amount: BigInt!
+  burnPrice: BigInt!
+  tokenSupply: BigInt!
+  reserve: BigInt!
 }
 
 type Transaction @entity {

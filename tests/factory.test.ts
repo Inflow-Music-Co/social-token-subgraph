@@ -1,7 +1,9 @@
 import { SocialTokenCreated,Whitelisted } from "../generated/Factory/Factory"
+import { Minted } from "../generated/templates/SocialToken/SocialToken"
 import { Address, ethereum } from "@graphprotocol/graph-ts"
 import {newMockEvent,test, assert} from "matchstick-as/assembly/index"
 import {handleSocialTokenCreated, handleWhitelisted} from "../src/mappings/factory"
+import {handleMinted } from "../src/mappings/core"
 import { Create,Factory } from "../generated/schema"
 import { loadTransaction } from '../src/utils/index'
 import { FACTORY_ADDRESS,ONE_BI, ZERO_BD, ZERO_BI } from '../src/utils/constants'
@@ -25,12 +27,56 @@ export function createWhitelistedEvent(account: Address): Whitelisted{
     whitelistedEvent.parameters = new Array()
 
     let whitelistedParam = new ethereum.EventParam("account", ethereum.Value.fromAddress(account))
-
     whitelistedEvent.parameters.push(whitelistedParam)
-
 
     return whitelistedEvent
 }
+
+export function createHandleMinted(minter: Address, amount: i32,mintPrice: i32, tokenSupply:i32,royaltyPaid: i32, reserve:i32): Minted{
+    let mintedEvent = changetype<Minted>(newMockEvent())
+    mintedEvent.parameters = new Array()
+
+    let minterParam = new ethereum.EventParam("minter", ethereum.Value.fromAddress(minter))
+    let mintPriceParam = new ethereum.EventParam("mintPrice", ethereum.Value.fromI32(mintPrice))
+    let amountParam = new ethereum.EventParam("mintPrice", ethereum.Value.fromI32(amount))
+    let tokenSupplyParam = new ethereum.EventParam("mintPrice", ethereum.Value.fromI32(tokenSupply))
+    let royaltyPaidParam = new ethereum.EventParam("mintPrice", ethereum.Value.fromI32(royaltyPaid))
+    let reserveParam = new ethereum.EventParam("mintPrice", ethereum.Value.fromI32(reserve))
+    mintedEvent.parameters.push(minterParam)
+    mintedEvent.parameters.push(mintPriceParam)
+    mintedEvent.parameters.push(amountParam)
+    mintedEvent.parameters.push(tokenSupplyParam)
+    mintedEvent.parameters.push(royaltyPaidParam)
+    mintedEvent.parameters.push(reserveParam)
+
+    return mintedEvent
+}
+
+test("Can handle Minted", () => {
+
+    //Create event
+    let mintedEvent = createHandleMinted(
+        Address.fromString("0x9024B65D2F4c399467541783d662f198a8627d68"),1000,1000,999,0x123,1
+    )
+
+    handleMinted(mintedEvent)
+
+    let transaction = loadTransaction(mintedEvent)
+    let factory = Factory.load(FACTORY_ADDRESS)
+    if(factory === null){
+        factory = new Factory(FACTORY_ADDRESS);
+    }
+    assert.fieldEquals("Minted", transaction.id + '#' + factory.tokenCount.toString(),
+     "minter",Address.fromString("0x9024B65D2F4c399467541783d662f198a8627d68").toHexString()
+    )
+    assert.fieldEquals("Minted", transaction.id + '#' + factory.tokenCount.toString(),
+    "mintPrice","1000"
+   )
+   assert.fieldEquals("Minted", transaction.id + '#' + factory.tokenCount.toString(),
+   "tokenSupply","999"
+  )
+
+})
 
 
 test("Can handle SocialTokenCreated", () => {

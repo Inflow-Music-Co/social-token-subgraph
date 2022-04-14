@@ -22,9 +22,13 @@ dataSources:
       abis:
         - name: Factory
           file: ./abis/Factory.json
+        - name: Whitelistable
+          file: ./abis/Whitelistable.json
       eventHandlers:
         - event: SocialTokenCreated(indexed address,indexed address)
           handler: handleSocialTokenCreated
+        - event: Whitelisted(indexed address)
+          handler: handleWhitelisted
 templates:
   - kind: ethereum
     name: SocialToken
@@ -37,10 +41,19 @@ templates:
       language: wasm/assemblyscript
       file: ./src/mappings/core.ts
       entities:
-        - Create
+        - SocialToken
+        - Minted
+        - Burned
       abis:
         - name: SocialToken
           file: ./abis/SocialToken.json
+      eventHandlers:
+        - event: Minted(indexed address,indexed uint256,indexed uint256,uint256,uint256,uint256)
+          handler: handleMinted
+        - event: Burned(indexed address,indexed uint256,indexed uint256,uint256,uint256)
+          handler: handleBurned
+
+
  
 
 
