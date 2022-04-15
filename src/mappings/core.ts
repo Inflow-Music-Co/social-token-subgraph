@@ -19,13 +19,14 @@ export function handleMinted(event: MintedEvent):void {
     
     factory.txCount = factory.txCount.plus(ONE_BI)
     
-    let minted = new Minted(transaction.id.toString() + '#' + factory.tokenCount.toString())
+    let minted = new Minted(transaction.id.toString())
     minted.minter = event.params.minter
     minted.mintPrice = event.params.mintPrice
     minted.amount = event.params.amount
     minted.tokenSupply = event.params.tokenSupply
     minted.royaltyPaid = event.params.royaltyPaid
     minted.reserve = event.params.reserve
+    minted.timestamp = event.block.timestamp
 
     factory.save()
     minted.save()
@@ -40,12 +41,13 @@ export function handleBurned(event: BurnedEvent): void{
 
     factory.txCount = factory.txCount.plus(ONE_BI)
 
-    let burned = new Burned(transaction.id.toString() + '#' + factory.tokenCount.toString())
+    let burned = new Burned(transaction.id.toString())
     burned.burner = event.params.burner
     burned.amount = event.params.amount
     burned.burnPrice = event.params.burnPrice
     burned.tokenSupply = event.params.tokenSupply
     burned.reserve = event.params.reserve
+    burned.timestamp = event.block.timestamp
 
     factory.save()
     burned.save()

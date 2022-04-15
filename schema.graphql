@@ -1,10 +1,3 @@
-type ExampleEntity @entity {
-  id: ID!
-  count: BigInt!
-  previousOwner: Bytes! # address
-  newOwner: Bytes! # address
-}
-
 type Factory @entity {
   # factory address
   id: ID!
@@ -13,7 +6,6 @@ type Factory @entity {
   # amount of transactions all time
   txCount: BigInt!
   # amount of unique users
-  userCount: BigInt!
 }
 
 type Create @entity {
@@ -42,6 +34,7 @@ type Minted @entity{
   tokenSupply: BigInt!
   royaltyPaid: BigInt!
   reserve: BigInt!
+  timestamp: BigInt!
 }
 
 type Burned @entity{
@@ -52,6 +45,7 @@ type Burned @entity{
   burnPrice: BigInt!
   tokenSupply: BigInt!
   reserve: BigInt!
+  timestamp: BigInt!
 }
 
 type Transaction @entity {

@@ -17,7 +17,6 @@ export function handleSocialTokenCreated(event: SocialTokenCreated):void {
 
     factory.tokenCount = factory.tokenCount.plus(ONE_BI)
     factory.txCount = factory.txCount.plus(ONE_BI)
-    factory.userCount = factory.userCount.plus(ONE_BI)
 
     let create = new Create(transaction.id + '#' + factory.tokenCount.toString())
     create.creatorAddress = event.params.creator
