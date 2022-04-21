@@ -21,6 +21,7 @@ export function handleMinted(event: MintedEvent):void {
     
     let minted = new Minted(transaction.id.toString())
     minted.minter = event.params.minter
+    minted.tokenAddress = event.params.tokenAddress
     minted.mintPrice = event.params.mintPrice
     minted.amount = event.params.amount
     minted.tokenSupply = event.params.tokenSupply
@@ -43,6 +44,7 @@ export function handleBurned(event: BurnedEvent): void{
 
     let burned = new Burned(transaction.id.toString())
     burned.burner = event.params.burner
+    burned.tokenAddress = event.params.tokenAddress
     burned.amount = event.params.amount
     burned.burnPrice = event.params.burnPrice
     burned.tokenSupply = event.params.tokenSupply

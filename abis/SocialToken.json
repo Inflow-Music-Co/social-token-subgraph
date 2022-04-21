@@ -1,5 +1,6 @@
 [
   {
+    "anonymous": false,
     "inputs": [
       {
         "components": [
@@ -10,7 +11,12 @@
           },
           {
             "internalType": "address",
-            "name": "collateral",
+            "name": "usdcCollateral",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "usdtCollateral",
             "type": "address"
           },
           {
@@ -78,14 +84,20 @@
       },
       {
         "indexed": true,
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
+        "internalType": "address",
+        "name": "tokenAddress",
+        "type": "address"
       },
       {
         "indexed": true,
         "internalType": "uint256",
         "name": "burnPrice",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
         "type": "uint256"
       },
       {
@@ -115,14 +127,20 @@
       },
       {
         "indexed": true,
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
+        "internalType": "address",
+        "name": "tokenAddress",
+        "type": "address"
       },
       {
         "indexed": true,
         "internalType": "uint256",
         "name": "mintPrice",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
         "type": "uint256"
       },
       {
@@ -269,19 +287,6 @@
     "name": "burn",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "collateral",
-    "outputs": [
-      {
-        "internalType": "contract IERC20",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -434,6 +439,11 @@
         "internalType": "uint256",
         "name": "amount",
         "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "collateralAddress",
+        "type": "address"
       }
     ],
     "name": "mint",
@@ -530,7 +540,7 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "recipient",
+        "name": "to",
         "type": "address"
       },
       {
@@ -554,12 +564,12 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "sender",
+        "name": "from",
         "type": "address"
       },
       {
         "internalType": "address",
-        "name": "recipient",
+        "name": "to",
         "type": "address"
       },
       {
@@ -590,6 +600,45 @@
     "name": "transferOwnership",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_creator",
+        "type": "address"
+      }
+    ],
+    "name": "updateCreator",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "usdcCollateral",
+    "outputs": [
+      {
+        "internalType": "contract IERC20",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "usdtCollateral",
+    "outputs": [
+      {
+        "internalType": "contract IERC20",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
