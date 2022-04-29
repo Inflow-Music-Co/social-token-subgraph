@@ -9,7 +9,7 @@ type Factory @entity {
 }
 
 type Create @entity {
-  # transaction hash + "#" + index in Transaction array
+  # transaction hash 
   id: ID!
   # address of the token creator
   creatorAddress: Bytes!
@@ -26,12 +26,13 @@ type Whitelist @entity {
 }
 
 type Minted @entity{
-  # transaction hash + "#" + index in mints Transaction array
+  # transaction hash 
   id: ID!
   minter: Bytes!
   tokenAddress: Bytes!
   amount: BigInt!
   mintPrice: BigInt!
+  unitPrice: BigDecimal!
   tokenSupply: BigInt!
   royaltyPaid: BigInt!
   reserve: BigInt!
@@ -45,6 +46,7 @@ type Burned @entity{
   tokenAddress: Bytes!
   amount: BigInt!
   burnPrice: BigInt!
+  unitPrice: BigDecimal!
   tokenSupply: BigInt!
   reserve: BigInt!
   timestamp: BigInt!
