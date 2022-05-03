@@ -4,12 +4,10 @@ import { SocialToken } from '../../generated/templates'
 import { Minted,Burned,Factory,Create} from "../../generated/schema"
 import { loadTransaction } from '../utils/index'
 import { FACTORY_ADDRESS,ONE_BI,ONE_BD, ZERO_BD, ZERO_BI } from '../utils/constants'
-
+import {bitsToToken} from "../utils/helpers"
 
 
 export function handleMinted(event: MintedEvent):void {
-
-  
     
     let transaction = loadTransaction(event)
     let factory = Factory.load(FACTORY_ADDRESS)
@@ -24,13 +22,11 @@ export function handleMinted(event: MintedEvent):void {
     minted.tokenAddress = event.params.tokenAddress
     minted.mintPrice = event.params.mintPrice
     minted.amount = event.params.amount
-    minted.unitPrice = event.params.mintPrice.toBigDecimal().div(event.params.amount.toBigDecimal())
+    minted.unitPrice = bitsToToken(event.params.mintPrice,6).div(bitsToToken(event.params.amount,18))
     minted.tokenSupply = event.params.tokenSupply
     minted.royaltyPaid = event.params.royaltyPaid
     minted.reserve = event.params.reserve
     minted.timestamp = event.block.timestamp
-
-    const a:BigDecimal = ONE_BD.div(ONE_BD)
 
     factory.save()
     minted.save()
@@ -50,7 +46,7 @@ export function handleBurned(event: BurnedEvent): void{
     burned.tokenAddress = event.params.tokenAddress
     burned.amount = event.params.amount
     burned.burnPrice = event.params.burnPrice
-    burned.unitPrice = event.params.burnPrice.toBigDecimal().div(event.params.amount.toBigDecimal())
+    burned.unitPrice = bitsToToken(event.params.burnPrice,6).div(bitsToToken(event.params.amount,18))
     burned.tokenSupply = event.params.tokenSupply
     burned.reserve = event.params.reserve
     burned.timestamp = event.block.timestamp
