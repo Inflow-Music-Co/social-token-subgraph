@@ -51,8 +51,10 @@ templates:
           handler: handleMinted
         - event: Burned(indexed address,indexed address,indexed uint256,uint256,uint256,uint256)
           handler: handleBurned
-
-
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
  
 
 

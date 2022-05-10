@@ -52,6 +52,20 @@ type Burned @entity{
   timestamp: BigInt!
 }
 
+type Transfer @entity{
+  id: ID!
+  from: Bytes!
+  to: Bytes!
+  value: BigInt!
+}
+
+type Approval @entity{
+  id: ID!
+  owner: Bytes!
+  spender: Bytes!
+  value: BigInt!
+}
+
 type Transaction @entity {
   # txn hash
   id: ID!
