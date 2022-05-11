@@ -25,11 +25,12 @@ type Whitelist @entity {
   timestamp: BigInt!
 }
 
+
 type Minted @entity{
   # transaction hash 
   id: ID!
   minter: Bytes!
-  tokenAddress: Bytes!
+  tokenAddress: String!
   amount: BigInt!
   mintPrice: BigInt!
   unitPrice: BigDecimal!
@@ -77,3 +78,30 @@ type Transaction @entity {
   gasUsed: BigInt!
   gasPrice: BigInt!
 }
+
+type Holder @entity {
+  id: ID!
+  address: Bytes!
+  balance: BigInt!
+  token: Token!
+}
+
+type Token @entity {
+  id: ID!
+  tokenAddress: String!
+  burned: BigInt!
+  holders:BigInt!
+  totalFees: BigInt!
+  lastMintedUnitPrice: BigDecimal!
+  totalSpent:BigInt!
+  numMint: BigInt!
+  averageSpend: BigInt!
+}
+
+type _Schema_ 
+  @fulltext(
+    name: "tokenSearch"
+    language: en
+    algorithm: rank
+    include: [{entity: "Token", fields: [{name: "tokenAddress"}]}]
+  )

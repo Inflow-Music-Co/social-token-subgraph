@@ -1,4 +1,6 @@
 specVersion: 0.0.4
+features:
+  - fullTextSearch
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,7 +8,7 @@ dataSources:
     name: Factory
     network: rinkeby
     source:
-      address: "0xBA11bc2597C49B1899B1f7F7a1C4d77b343Aae45"
+      address: "0x41C659319885598d77CF5bd8E792A5162bC72A04"
       abi: Factory
       startBlock: 10000000
     mapping:
