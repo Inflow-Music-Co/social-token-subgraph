@@ -1,8 +1,8 @@
 # social-token-subgraph
-SocialTokenFactory contract address on Rinkeby: 
+SocialTokenFactory contract address on Mainnet:
 
 # TEMPORARY QUERY URL
-https://api.studio.thegraph.com/query/25316/social-token-subgraph/0.3.4
+https://api.studio.thegraph.com/query/27824/inflowmusic/0.3.7
 
 # Query Example
 

@@ -6,9 +6,9 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: Factory
-    network: rinkeby
+    network: mainnet
     source:
-      address: "0x41C659319885598d77CF5bd8E792A5162bC72A04"
+      address: "0x29b8f7dBeb92248Aa8d909Ce214D495741d64c87"
       abi: Factory
       startBlock: 10000000
     mapping:
@@ -34,7 +34,7 @@ dataSources:
 templates:
   - kind: ethereum/contract
     name: SocialToken
-    network: rinkeby
+    network: mainnet
     source:
       abi: SocialToken
     mapping:
